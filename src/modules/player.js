@@ -28,61 +28,9 @@ export default (lastSave, appModel) => {
         },
         unlocked: {},
         secretCodes: {},
-        megaStones: {
-            abomasite: 0,
-            absolite: 0,
-            aerodactylite: 0,
-            aggronite: 0,
-            alakazite: 0,
-            altarianite: 0,
-            ampharosite: 0,
-            audinite: 0,
-            banettite: 0,
-            beedrillite: 0,
-            blastoisinite: 0,
-            blazikenite: 0,
-            cameruptite: 0,
-            charizarditeX: 0,
-            charizarditeY: 0,
-            diancite: 0,
-            galladite: 0,
-            garchompite: 0,
-            gardevoirite: 0,
-            gengarite: 0,
-            glalitite: 0,
-            gyaradosite: 0,
-            heracronite: 0,
-            houndoominite: 0,
-            kangaskhanite: 0,
-            latiasite: 0,
-            latiosite: 0,
-            lopunnite: 0,
-            lucarionite: 0,
-            manectite: 0,
-            mawilite: 0,
-            medichamite: 0,
-            metagrossite: 0,
-            mewtwoniteX: 0,
-            mewtwoniteY: 0,
-            pidgeotite: 0,
-            pinsirite: 0,
-            sablenite: 0,
-            salamencite: 0,
-            sceptilite: 0,
-            scizorite: 0,
-            sharpedonite: 0,
-            slowbronite: 0,
-            steelixite: 0,
-            swampertite: 0,
-            tyranitarite: 0,
-            venusaurite: 0,
-        },
-        evoStones: {},
         currencyAmount: {
             pokecoins: 0,
             catchcoins: 0,
-            battlecoins: 0,
-            gametokens: 0,
         },
         battleItems: {
             xAttack: 0,
@@ -112,11 +60,6 @@ export default (lastSave, appModel) => {
             dexVersion: 194, // check if users dex is out of date
             spriteChoice: 'back',
             catching: false,
-        },
-        skills: {
-            breeding: 0,
-            throwing: 0,
-            training: 0,
         },
         statistics: {
             seen: 0,
@@ -148,7 +91,6 @@ export default (lastSave, appModel) => {
             caught1: 1000,
         },
         badges: {},
-        wins: {},
         events: {},
         purgeData: false,
 
@@ -478,12 +420,9 @@ export default (lastSave, appModel) => {
                 localStorage.setItem('statisticsRequirements', JSON.stringify(this.statisticsRequirements));
                 localStorage.setItem('settings', JSON.stringify(this.settings));
                 localStorage.setItem('badges', JSON.stringify(this.badges));
-                localStorage.setItem('wins', JSON.stringify(this.wins));
                 localStorage.setItem('events', JSON.stringify(this.events));
                 localStorage.setItem('unlocked', JSON.stringify(this.unlocked));
-                localStorage.setItem('megaStones', JSON.stringify(this.megaStones));
                 localStorage.setItem('secretCodes', JSON.stringify(this.secretCodes));
-                localStorage.setItem('evoStones', JSON.stringify(this.evoStones));
                 localStorage.setItem('currencyAmount', JSON.stringify(this.currencyAmount));
                 localStorage.setItem('currentBoostedRoamer', JSON.stringify(this.currentBoostedRoamer));
             }
@@ -499,12 +438,9 @@ export default (lastSave, appModel) => {
                 settings: this.settings,
                 ballsAmount: this.ballsAmount,
                 badges: this.badges,
-                wins: this.wins,
                 events: this.events,
                 unlocked: this.unlocked,
-                megaStones: this.megaStones,
                 secretCodes: this.secretCodes,
-                evoStones: this.evoStones,
                 currencyAmount: this.currencyAmount,
                 battleItems: this.battleItems,
                 vitamins: this.vitamins,
@@ -569,9 +505,6 @@ export default (lastSave, appModel) => {
             if (JSON.parse(localStorage.getItem('badges'))) {
                 this.badges = JSON.parse(localStorage.getItem('badges'));
             }
-            if (JSON.parse(localStorage.getItem('wins'))) {
-                this.wins = JSON.parse(localStorage.getItem('wins'));
-            }
             if (JSON.parse(localStorage.getItem('events'))) {
                 this.events = JSON.parse(localStorage.getItem('events'));
             }
@@ -581,12 +514,6 @@ export default (lastSave, appModel) => {
             }
             if (JSON.parse(localStorage.getItem('currencyAmount'))) {
                 this.currencyAmount = JSON.parse(localStorage.getItem('currencyAmount'));
-            }
-            if (JSON.parse(localStorage.getItem('megaStones'))) {
-                this.megaStones = JSON.parse(localStorage.getItem('megaStones'));
-            }
-            if (JSON.parse(localStorage.getItem('evoStones'))) {
-                this.evoStones = JSON.parse(localStorage.getItem('evoStones'));
             }
             if (JSON.parse(localStorage.getItem('battleItems'))) {
                 this.battleItems = JSON.parse(localStorage.getItem('battleItems'));
@@ -656,7 +583,6 @@ export default (lastSave, appModel) => {
                 }
                 this.statisticsRequirements = saveData.statisticsRequirements;
                 this.badges = saveData.badges ? saveData.badges : {};
-                this.wins = saveData.wins ? saveData.wins : {};
                 this.currentBoostedRoamer = saveData.currentBoostedRoamer;
                 this.events = saveData.events ? saveData.events : {};
                 const loadedUnlocked = saveData.unlocked ? saveData.unlocked : [];
