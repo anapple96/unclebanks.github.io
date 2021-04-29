@@ -73,29 +73,6 @@ const evoRequirementMet = (poke, player) => (evo) => {
 
     return requirementMet(evo.requires) && !player.hasPokemon(evo.to, false);
 };
-Poke.prototype.tryEvolve = function (shiny, player) {
-    const evos = EVOLUTIONS[this.pokeName()];
-    if (evos !== undefined) {
-        const oldPokemon = this.pokeName();
-        // Get the first evo for this pokemon which has requirements met
-        const evo = evos.find(evoRequirementMet(this, player));
-        if (evo !== undefined) {
-            this.poke = cloneJsonObject(pokeByName(evo.to));
-            player.addPokedex(evo.to, (shiny ? POKEDEXFLAGS.ownShiny : POKEDEXFLAGS.ownNormal));
-            if (!player.hasPokemon(oldPokemon, shiny)) {
-                player.addPokedex(oldPokemon, (shiny ? POKEDEXFLAGS.ownedShiny : POKEDEXFLAGS.ownedNormal));
-            }
-        }
-    }
-};
-Poke.prototype.canEvolve = function (player) {
-    // pokemon Has Evolution
-    const evos = EVOLUTIONS[this.pokeName()];
-    if (evos !== undefined) {
-        return evos.findIndex(evoRequirementMet(this, player)) > -1;
-    }
-    return false;
-};
 Poke.prototype.tryPrestige = function () {
     if (this.canPrestige()) {
         this.exp = this.expTable[4];

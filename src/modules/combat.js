@@ -17,12 +17,9 @@ export default (player, enemy) => {
         paused: false,
         prof: null,
         profPoke: {},
-        gymLeader: null,
-        gymLeaderPoke: {},
         npc: null,
         npcPoke: {},
         profCurrentID: 0,
-        gymLeaderCurrentID: 0,
         npcCurrentID: 0,
         enemyActivePoke: null,
         playerTimerId: null,
@@ -118,6 +115,22 @@ export default (player, enemy) => {
             if (enemy.activePoke().shiny()) {
                 player.statistics.shinyBeaten++;
             }
+            const routeData = ROUTES[player.settings.currentRegionId][player.settings.currentRouteId];
+            if (routeData.type === 'fire') {
+                player.typePoints.fire += enemy.activePoke().level();
+            }
+            if (routeData.type === 'water') {
+                player.typePoints.water += enemy.activePoke().level();
+            }
+            if (routeData.type === 'grass') {
+                player.typePoints.grass += enemy.activePoke().level();
+            }
+            if (routeData.type === 'normal') {
+                player.typePoints.normal += enemy.activePoke().level();
+            }
+            if (routeData.type === 'electric') {
+                player.typePoints.electric += enemy.activePoke().level();
+            }
             player.statistics.beaten++;
             Combat.attemptCatch();
             Combat.findPokeballs(enemy.activePoke().level());
@@ -135,8 +148,6 @@ export default (player, enemy) => {
             if (Combat.prof) {
             // remove the pokemon
                 Combat.profPoke.splice(Combat.profCurrentID, 1);
-                const foundBattleCoins = Math.floor(Combat.enemyActivePoke.level() * Combat.profPoke.length) + 5;
-                player.addBattleCoins(foundBattleCoins);
                 if (Combat.profPoke.length < 1) {
                     if (Combat.prof.badge) {
                         if (!player.badges[Combat.prof.badge]) {
@@ -164,8 +175,6 @@ export default (player, enemy) => {
             if (Combat.npc) {
             // remove the pokemon
                 Combat.npcPoke.splice(Combat.npcCurrentID, 1);
-                const foundBattleCoins = Math.floor(Combat.enemyActivePoke.level() * Combat.npcPoke.length) + 5;
-                player.addBattleCoins(foundBattleCoins);
                 if (Combat.npcPoke.length < 1) {
                     if (Combat.npc.event) {
                         if (!player.events[Combat.npc.event]) {
@@ -178,31 +187,6 @@ export default (player, enemy) => {
                     return false;
                 }
             }
-            // was it a gymLeader poke
-            if (Combat.gymLeader) {
-            // remove the pokemon
-                Combat.gymLeaderPoke.splice(Combat.gymLeaderCurrentID, 1);
-                const foundBattleCoins = Math.floor(Combat.enemyActivePoke.level() * Combat.gymLeaderPoke.length) + 5;
-                player.addBattleCoins(foundBattleCoins);
-                if (Combat.gymLeaderPoke.length < 1) {
-                    if (Combat.gymLeader.badge) {
-                        if (!player.badges[Combat.gymLeader.badge]) {
-                            player.badges[Combat.gymLeader.badge] = true;
-                            dom.renderRouteList();
-                        }
-                    }
-                    if (Combat.gymLeader.win) {
-                        if (!player.wins[Combat.gymLeader.win]) {
-                            player.wins[Combat.gymLeader.win] = true;
-                            dom.renderRouteList();
-                        }
-                    }
-                    Combat.gymLeader = null;
-                    Combat.pause();
-                    return false;
-                }
-            }
-
             if (player.checkBoostedRoamer()) {
                 dom.renderRouteList();
             }
@@ -216,8 +200,6 @@ export default (player, enemy) => {
         newEnemy: function () {
             if (Combat.prof) {
                 enemy.profPoke(Combat.profPoke);
-            } else if (Combat.gymLeader) {
-                enemy.gymLeaderPoke(Combat.gymLeaderPoke);
             } else if (Combat.npc) {
                 enemy.npcPoke(Combat.npcPoke);
             } else {
@@ -241,10 +223,6 @@ export default (player, enemy) => {
                     Combat.prof = null;
                     Combat.pause();
                 }
-                if (Combat.gymLeader) {
-                    Combat.gymLeader = null;
-                    Combat.pause();
-                }
                 if (Combat.npc) {
                     Combat.npc = null;
                     Combat.pause();
@@ -257,7 +235,7 @@ export default (player, enemy) => {
         },
         attemptCatch: function () {
             if (
-                !Combat.prof && !Combat.gymLeader && !Combat.npc && (
+                !Combat.prof && !Combat.npc && (
                     (Combat.catchEnabled == 'all')
                     || (Combat.catchEnabled == 'new' && !player.hasPokemonLike(enemy.activePoke()))
                 )

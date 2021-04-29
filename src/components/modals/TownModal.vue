@@ -11,10 +11,6 @@
         >
           <h4>PokeCoin Shop</h4>
           <ul id="pokecoinShopItems" />
-          <div id="battlecoinShop">
-            <h4>BattleCoin Shop</h4>
-            <ul id="battlecoinShopItems" />
-          </div>
           <div id="catchcoinShop">
             <h4>CatchCoin Shop</h4>
             <ul id="catchcoinShopItems" />

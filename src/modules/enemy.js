@@ -18,12 +18,6 @@ export default (starter, player, Poke) => {
         const poke = pokeByName(pokemonList[selected][0]);
         return generator(poke, pokemonList[selected][1]);
     };
-    const gymLeaderPoke = (pokemonList) => {
-        const selected = 0;
-        combatLoop.gymLeaderCurrentID = selected;
-        const poke = pokeByName(pokemonList[selected][0]);
-        return generator(poke, pokemonList[selected][1]);
-    };
     const npcPoke = (pokemonList) => {
         const selected = 0;
         combatLoop.npcCurrentID = selected;
@@ -83,7 +77,6 @@ export default (starter, player, Poke) => {
         activePoke: () => active,
         clear: () => active = null,
         profPoke: (pokemonList) => active = profPoke(pokemonList),
-        gymLeaderPoke: (pokemonList) => active = gymLeaderPoke(pokemonList),
         npcPoke: (pokemonList) => active = npcPoke(pokemonList),
         generateNew: (regionId, routeId) => active = generateNew(regionId, routeId),
         attachCL: (_combatLoop) => combatLoop = _combatLoop,

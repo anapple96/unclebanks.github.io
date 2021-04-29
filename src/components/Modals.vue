@@ -1,8 +1,7 @@
 <template>
   <SaveTextModal :ui="ui" />
   <InventoryModal />
-  <BadgesModal />
-  <EvolutionStonesModal />
+  <TypePointsModal />
   <KeyItemsModal />
   <VitaminModal />
   <SettingsModal :ui="ui" />
@@ -19,8 +18,7 @@
 <script>
 import SaveTextModal from './modals/SaveTextModal.vue';
 import InventoryModal from './modals/InventoryModal.vue';
-import BadgesModal from './modals/BadgesModal.vue';
-import EvolutionStonesModal from './modals/EvolutionStonesModal.vue';
+import TypePointsModal from './modals/TypePointsModal.vue';
 import KeyItemsModal from './modals/KeyItemsModal.vue';
 import VitaminModal from './modals/VitaminModal.vue';
 import SettingsModal from './modals/SettingsModal.vue';
@@ -37,8 +35,7 @@ export default {
     components: {
         SaveTextModal,
         InventoryModal,
-        BadgesModal,
-        EvolutionStonesModal,
+        TypePointsModal,
         KeyItemsModal,
         VitaminModal,
         SettingsModal,

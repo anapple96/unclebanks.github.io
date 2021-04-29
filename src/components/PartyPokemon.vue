@@ -17,12 +17,6 @@
     >{{ poke.pokeName() }} ({{ poke.level() + (poke.prestigeLevel ? (`p${poke.prestigeLevel}`) : '') }})</a>
     <br>
     <button
-      class="pokeEvolveButton"
-      @click="ui.evolvePokemon(index)"
-    >
-      Evolve
-    </button>
-    <button
       class="pokePrestigeButton"
       @click="ui.prestigePokemon(index)"
     >
@@ -57,7 +51,6 @@
 
 <script>
 const dynamicClasses = {
-    'canEvolve': ({ poke, player }) => poke.canEvolve(player),
     'canPrestige': ({ poke }) => poke.canPrestige(),
 };
 

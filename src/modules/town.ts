@@ -24,18 +24,10 @@ interface ShopItemMegaStone extends ShopItemBase {
     megaStones: string,
 }
 
-interface ShopItemEvoStone extends ShopItemBase {
-    evoStones: string,
-}
-
-type ShopItem = ShopItemBall | ShopItemBattleItem | ShopItemUnlockable | ShopItemMegaStone | ShopItemEvoStone;
+type ShopItem = ShopItemBall | ShopItemBattleItem | ShopItemUnlockable | ShopItemMegaStone;
 
 interface PokecoinShopItemBase {
     pokecoins: number,
-}
-
-interface BattlecoinShopItemBase {
-    battlecoins: number,
 }
 
 interface CatchcoinShopItemBase {
@@ -45,10 +37,6 @@ interface CatchcoinShopItemBase {
 type PokecoinShopItem = PokecoinShopItemBase & ShopItem;
 
 type PokecoinShop = PokecoinShopItem[];
-
-type BattlecoinShopItem = BattlecoinShopItemBase & ShopItem;
-
-type BattlecoinShop = BattlecoinShopItem[];
 
 type CatchcoinShopItem = CatchcoinShopItemBase & ShopItem;
 
@@ -73,8 +61,6 @@ class Town {
     dom: DOM;
 
     pokecoinShops: RegionShops<PokecoinShop>;
-
-    battlecoinShops: RegionShops<BattlecoinShop>;
 
     catchcoinShops: RegionShops<CatchcoinShop>;
 
@@ -215,272 +201,6 @@ class Town {
                 },
             ],
         };
-        this.battlecoinShops = {
-            kanto: [
-                {
-                    name: 'Razz Berry',
-                    battlecoins: 2500,
-                    unlockable: 'razzBerry',
-                },
-            ],
-            johto: [
-                {
-                    name: 'Razz Berry',
-                    battlecoins: 250,
-                    unlockable: 'razzBerry',
-                },
-            ],
-            hoenn: [
-                {
-                    name: 'Razz Berry',
-                    battlecoins: 250,
-                    unlockable: 'razzBerry',
-                },
-            ],
-            sinnoh: [
-                {
-                    name: 'Razz Berry',
-                    battlecoins: 250,
-                    unlockable: 'razzBerry',
-                },
-            ],
-            unova: [
-                {
-                    name: 'Razz Berry',
-                    battlecoins: 250,
-                    unlockable: 'razzBerry',
-                },
-            ],
-            kalos: [
-                {
-                    name: 'Abomasite',
-                    battlecoins: 1000,
-                    megaStones: 'abomasite',
-                },
-                {
-                    name: 'Absolite',
-                    battlecoins: 1000,
-                    megaStones: 'absolite',
-                },
-                {
-                    name: 'Aerodactylite',
-                    battlecoins: 1000,
-                    megaStones: 'aerodactylite',
-                },
-                {
-                    name: 'Aggronite',
-                    battlecoins: 1000,
-                    megaStones: 'aggronite',
-                },
-                {
-                    name: 'Alakazite',
-                    battlecoins: 1000,
-                    megaStones: 'alakazite',
-                },
-                {
-                    name: 'Altarianite',
-                    battlecoins: 1000,
-                    megaStones: 'altarianite',
-                },
-                {
-                    name: 'Ampharosite',
-                    battlecoins: 1000,
-                    megaStones: 'ampharosite',
-                },
-                {
-                    name: 'Audinite',
-                    battlecoins: 1000,
-                    megaStones: 'audinite',
-                },
-                {
-                    name: 'Banettite',
-                    battlecoins: 1000,
-                    megaStones: 'banettite',
-                },
-                {
-                    name: 'Beedrillite',
-                    battlecoins: 1000,
-                    megaStones: 'beedrillite',
-                },
-                {
-                    name: 'Blastoisinite',
-                    battlecoins: 1000,
-                    megaStones: 'blastoisinite',
-                },
-                {
-                    name: 'Blazikenite',
-                    battlecoins: 1000,
-                    megaStones: 'blazikenite',
-                },
-                {
-                    name: 'Cameruptite',
-                    battlecoins: 1000,
-                    megaStones: 'cameruptite',
-                },
-                {
-                    name: 'Charizardite Y',
-                    battlecoins: 1000,
-                    megaStones: 'charizarditeY',
-                },
-                {
-                    name: 'Diancite',
-                    battlecoins: 1000,
-                    megaStones: 'diancite',
-                },
-                {
-                    name: 'Galladite',
-                    battlecoins: 1000,
-                    megaStones: 'galladite',
-                },
-                {
-                    name: 'Garchompite',
-                    battlecoins: 1000,
-                    megaStones: 'garchompite',
-                },
-                {
-                    name: 'Gardevoirite',
-                    battlecoins: 1000,
-                    megaStones: 'gardevoirite',
-                },
-                {
-                    name: 'Gengarite',
-                    battlecoins: 1000,
-                    megaStones: 'gengarite',
-                },
-                {
-                    name: 'Glalitite',
-                    battlecoins: 1000,
-                    megaStones: 'glalitite',
-                },
-                {
-                    name: 'Gyaradosite',
-                    battlecoins: 1000,
-                    megaStones: 'gyaradosite',
-                },
-                {
-                    name: 'Heracronite',
-                    battlecoins: 1000,
-                    megaStones: 'heracronite',
-                },
-                {
-                    name: 'Houndoominite',
-                    battlecoins: 1000,
-                    megaStones: 'houndoominite',
-                },
-                {
-                    name: 'Kangaskhanite',
-                    battlecoins: 1000,
-                    megaStones: 'kangaskhanite',
-                },
-                {
-                    name: 'Latiasite',
-                    battlecoins: 1000,
-                    megaStones: 'latiasite',
-                },
-                {
-                    name: 'Latiosite',
-                    battlecoins: 1000,
-                    megaStones: 'latiosite',
-                },
-                {
-                    name: 'Lopunnite',
-                    battlecoins: 1000,
-                    megaStones: 'lopunnite',
-                },
-                {
-                    name: 'Lucarionite',
-                    battlecoins: 1000,
-                    megaStones: 'lucarionite',
-                },
-                {
-                    name: 'Manectite',
-                    battlecoins: 1000,
-                    megaStones: 'manectite',
-                },
-                {
-                    name: 'Mawilite',
-                    battlecoins: 1000,
-                    megaStones: 'mawilite',
-                },
-                {
-                    name: 'Medichamite',
-                    battlecoins: 1000,
-                    megaStones: 'medichamite',
-                },
-                {
-                    name: 'Metagrossite',
-                    battlecoins: 1000,
-                    megaStones: 'metagrossite',
-                },
-                {
-                    name: 'Mewtwonite X',
-                    battlecoins: 1000,
-                    megaStones: 'mewtwoniteX',
-                },
-                {
-                    name: 'Mewtwonite Y',
-                    battlecoins: 1000,
-                    megaStones: 'mewtwoniteY',
-                },
-                {
-                    name: 'Pidgeotite',
-                    battlecoins: 1000,
-                    megaStones: 'pidgeotite',
-                },
-                {
-                    name: 'Pinsirite',
-                    battlecoins: 1000,
-                    megaStones: 'pinsirite',
-                },
-                {
-                    name: 'Sablenite',
-                    battlecoins: 1000,
-                    megaStones: 'sablenite',
-                },
-                {
-                    name: 'Salamencite',
-                    battlecoins: 1000,
-                    megaStones: 'salamencite',
-                },
-                {
-                    name: 'Sceptilite',
-                    battlecoins: 1000,
-                    megaStones: 'sceptilite',
-                },
-                {
-                    name: 'Scizorite',
-                    battlecoins: 1000,
-                    megaStones: 'scizorite',
-                },
-                {
-                    name: 'Sharpedonite',
-                    battlecoins: 1000,
-                    megaStones: 'sharpedonite',
-                },
-                {
-                    name: 'Slowbronite',
-                    battlecoins: 1000,
-                    megaStones: 'slowbronite',
-                },
-                {
-                    name: 'Swampertite',
-                    battlecoins: 1000,
-                    megaStones: 'swampertite',
-                },
-                {
-                    name: 'Tyranitarite',
-                    battlecoins: 1000,
-                    megaStones: 'tyranitarite',
-                },
-            ],
-            alola: [
-                {
-                    name: 'Razz Berry',
-                    battlecoins: 250,
-                    unlockable: 'razzBerry',
-                },
-            ],
-        };
         this.catchcoinShops = {
             kanto: [
                 {
@@ -497,31 +217,6 @@ class Town {
                     name: 'Super Rod',
                     catchcoins: 10000,
                     unlockable: 'kantoSuperRod',
-                },
-                {
-                    name: 'Thunder Stone',
-                    catchcoins: 1000,
-                    evoStones: 'thunderStone',
-                },
-                {
-                    name: 'Fire Stone',
-                    catchcoins: 1000,
-                    evoStones: 'fireStone',
-                },
-                {
-                    name: 'Water Stone',
-                    catchcoins: 1000,
-                    evoStones: 'waterStone',
-                },
-                {
-                    name: 'Leaf Stone',
-                    catchcoins: 1000,
-                    evoStones: 'leafStone',
-                },
-                {
-                    name: 'Moon Stone',
-                    catchcoins: 1000,
-                    evoStones: 'moonStone',
                 },
             ],
             johto: [
@@ -540,31 +235,6 @@ class Town {
                     catchcoins: 10000,
                     unlockable: 'johtoSuperRod',
                 },
-                {
-                    name: 'Sun Stone',
-                    catchcoins: 1000,
-                    evoStones: 'sunStone',
-                },
-                {
-                    name: 'Metal Coat',
-                    catchcoins: 1000,
-                    evoStones: 'metalCoat',
-                },
-                {
-                    name: 'Soothe Bell',
-                    catchcoins: 1000,
-                    evoStones: 'sootheBell',
-                },
-                {
-                    name: 'Upgrade',
-                    catchcoins: 1000,
-                    evoStones: 'upGrade',
-                },
-                {
-                    name: 'Dragon Scale',
-                    catchcoins: 1000,
-                    evoStones: 'dragonScale',
-                },
             ],
             hoenn: [
                 {
@@ -582,11 +252,6 @@ class Town {
                     catchcoins: 10000,
                     unlockable: 'hoennSuperRod',
                 },
-                {
-                    name: 'Kings Rock',
-                    catchcoins: 1000,
-                    evoStones: 'kingsRock',
-                },
             ],
             sinnoh: [
                 {
@@ -603,16 +268,6 @@ class Town {
                     name: 'Super Rod',
                     catchcoins: 10000,
                     unlockable: 'sinnohSuperRod',
-                },
-                {
-                    name: 'Dusk Stone',
-                    catchcoins: 1000,
-                    evoStones: 'duskStone',
-                },
-                {
-                    name: 'Protector',
-                    catchcoins: 1000,
-                    evoStones: 'Protector',
                 },
             ],
             unova: [
@@ -665,21 +320,6 @@ class Town {
                     catchcoins: 10000,
                     unlockable: 'alolaSuperRod',
                 },
-                {
-                    name: 'Ice Stone',
-                    catchcoins: 10000,
-                    evoStones: 'iceStone',
-                },
-                {
-                    name: 'Sachet',
-                    catchcoins: 1000,
-                    evoStones: 'Sachet',
-                },
-                {
-                    name: 'Whipped Dream',
-                    catchcoins: 1000,
-                    evoStones: 'whippedDream',
-                },
             ],
         };
     }
@@ -724,45 +364,6 @@ class Town {
         $('#pokecoinShopItems').innerHTML = shopHTML;
     }
 
-    renderBattleCoinShop(region: string): void {
-        let shopHTML = '';
-        const shop: BattlecoinShop | null = region in this.battlecoinShops ? this.battlecoinShops[region] : null;
-        if (!shop) {
-            throw new Error(`Couldn't find shop for region ${region}`);
-        }
-        for (let i = 0; i < shop.length; i++) {
-            const item = shop[i];
-            let canBuy = true;
-            let own = false;
-            let missingMegaBracelet = false;
-            if (this.player.currencyAmount.battlecoins < item.battlecoins) canBuy = false;
-            if ('unlockable' in item && this.player.unlocked[item.unlockable]) {
-                canBuy = false;
-                own = true;
-            }
-            if ('megaStones' in item && this.player.megaStones[item.megaStones]) {
-                canBuy = false;
-                own = true;
-            }
-            if ('megaStones' in item && !this.player.unlocked.megaBracelet) {
-                canBuy = false;
-                missingMegaBracelet = true;
-            }
-            const disableButton = (!canBuy || own) ? ' disabled="true"' : '';
-            let buttonText = 'Buy';
-            if (own) {
-                buttonText = 'Own';
-            }
-            if (missingMegaBracelet) {
-                buttonText = 'Missing Mega Bracelet';
-            }
-            const buttonHTML = ` <button onclick="town.buyBattleCoinItem('${region}', ${i})"${disableButton}>${buttonText}</button>`;
-            const showImage = false;
-            shopHTML += `<li>${showImage ? `<img src="assets/images/battleShop/${item.name}.png" height="30" width="30"></img>` : item.name}: <img src="assets/images/currency/BattleCoin.png" height="16" width="16"></img>${item.battlecoins}${buttonHTML}</li>`;
-        }
-        $('#battlecoinShopItems').innerHTML = shopHTML;
-    }
-
     renderCatchCoinShop(region: string): void {
         let shopHTML = '';
         const shop: CatchcoinShop | null = region in this.catchcoinShops ? this.catchcoinShops[region] : null;
@@ -775,10 +376,6 @@ class Town {
             let own = false;
             if (this.player.currencyAmount.catchcoins < item.catchcoins) canBuy = false;
             if ('unlockable' in item && this.player.unlocked[item.unlockable]) {
-                canBuy = false;
-                own = true;
-            }
-            if ('evoStones' in item && this.player.evoStones[item.evoStones]) {
                 canBuy = false;
                 own = true;
             }
@@ -816,32 +413,6 @@ class Town {
         }
     }
 
-    buyBattleCoinItem(region: string, index: number) {
-        const shop: BattlecoinShop | null = region in this.battlecoinShops ? this.battlecoinShops[region] : null;
-        if (!shop) {
-            throw new Error(`Couldn't find shop for region ${region}`);
-        }
-        const item = shop[index];
-        if (this.player.currencyAmount.battlecoins < item.battlecoins) {
-            return false;
-        } else {
-            this.player.currencyAmount.battlecoins -= item.battlecoins;
-            if ('unlockable' in item) {
-                this.player.unlocked[item.unlockable] = 1;
-            } else if ('ball' in item) {
-                this.player.ballsAmount[item.ball]++;
-                this.dom.renderBalls();
-            } else if ('megaStones' in item) {
-                this.player.megaStones[item.megaStones] = 1;
-            } else {
-                throw new Error('Unhandled item type.');
-            }
-            this.renderBattleCoinShop(region); // force refresh of shop
-            this.dom.renderCurrency();
-            return true;
-        }
-    }
-
     buyCatchCoinItem(region: string, index: number) {
         const shop: CatchcoinShop | null = region in this.catchcoinShops ? this.catchcoinShops[region] : null;
         if (!shop) {
@@ -854,10 +425,6 @@ class Town {
             this.player.currencyAmount.catchcoins -= item.catchcoins;
             if ('unlockable' in item) {
                 this.player.unlocked[item.unlockable] = 1;
-                this.dom.renderRouteList();
-            }
-            if ('evoStones' in item) {
-                this.player.evoStones[item.evoStones] = 1;
                 this.dom.renderRouteList();
             }
             this.renderCatchCoinShop(region); // force refresh of shop

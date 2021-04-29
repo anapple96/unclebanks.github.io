@@ -1,6 +1,7 @@
 import { $, flash } from './utilities';
 import ROUTES from './routes';
 import { COLORS } from './data';
+import { openModal, closeModal } from './modalEvents';
 
 export const renderView = (dom, enemy, player, purge = true) => {
     dom.renderPokeOnContainer('enemy', enemy.activePoke());
@@ -33,7 +34,6 @@ export default (player, combatLoop, userInteractions) => {
             const container = $(`#${id}Box`).querySelector('.pokeBox');
             const townBox = $('#townBox');
             const profButton = $('#profButton');
-            const gymLeaderButton = $('#gymLeaderButton');
             const npcButton = $('#npcButton');
             if (!poke) {
                 container.style.display = 'none';
@@ -42,8 +42,6 @@ export default (player, combatLoop, userInteractions) => {
                     const route = ROUTES[player.settings.currentRegionId][player.settings.currentRouteId];
                     profButton.style.display = (route.prof) ? '' : 'none';
                     profButton.innerHTML = (route.prof) ? route.prof.name : '';
-                    gymLeaderButton.style.display = (route.gymLeader) ? '' : 'none';
-                    gymLeaderButton.innerHTML = (route.gymLeader) ? route.gymLeader.name : '';
                     npcButton.style.display = (route.npc) ? '' : 'none';
                     npcButton.innerHTML = (route.npc) ? route.npc.name : '';
                 }
@@ -177,6 +175,48 @@ export default (player, combatLoop, userInteractions) => {
                 $(`.ball-amount.${ballType}`).innerHTML = player.ballsAmount[ballType];
             });
         },
+        renderTypePoints: function () {
+            this.renderFirePoints();
+            openModal(document.getElementById('typePointsModal'));
+        },
+        renderFirePoints: function () {
+            const fire = $('#firePoints');
+            const water = $('#waterPoints');
+            const grass = $('#grassPoints');
+            const electric = $('#electricPoints');
+            const ghost = $('#ghostPoints');
+            const dark = $('#darkPoints');
+            const dragon = $('#dragonPoints');
+            const fighting = $('#fightingPoints');
+            const flying = $('#flyingPoints');
+            const fairy = $('#fairyPoints');
+            const ice = $('#icePoints');
+            const bug = $('#bugPoints');
+            const steel = $('#steelPoints');
+            const normal = $('#normalPoints');
+            const psychic = $('#psychicPoints');
+            const ground = $('#groundPoints');
+            const rock = $('#rockPoints');
+            const poison = $('#poisonPoints');
+            fire.innerHTML = `${player.typePoints.fire}`;
+            water.innerHTML = `${player.typePoints.water}`;
+            grass.innerHTML = `${player.typePoints.grass}`;
+            electric.innerHTML = `${player.typePoints.electric}`;
+            ghost.innerHTML = `${player.typePoints.ghost}`;
+            dark.innerHTML = `${player.typePoints.dark}`;
+            dragon.innerHTML = `${player.typePoints.dragon}`;
+            fighting.innerHTML = `${player.typePoints.fighting}`;
+            flying.innerHTML = `${player.typePoints.flying}`;
+            fairy.innerHTML = `${player.typePoints.fairy}`;
+            ice.innerHTML = `${player.typePoints.ice}`;
+            bug.innerHTML = `${player.typePoints.bug}`;
+            steel.innerHTML = `${player.typePoints.steel}`;
+            normal.innerHTML = `${player.typePoints.normal}`;
+            psychic.innerHTML = `${player.typePoints.psychic}`;
+            ground.innerHTML = `${player.typePoints.ground}`;
+            rock.innerHTML = `${player.typePoints.rock}`;
+            poison.innerHTML = `${player.typePoints.poison}`;
+        },
         renderPokeCoins: function () {
             const pokeCoinsElement = $('#pokeCoins');
             pokeCoinsElement.innerHTML = player.currencyAmount.pokecoins;
@@ -185,12 +225,7 @@ export default (player, combatLoop, userInteractions) => {
             const catchCoinsElement = $('#catchCoins');
             catchCoinsElement.innerHTML = player.currencyAmount.catchcoins;
         },
-        renderBattleCoins: function () {
-            const battleCoinsElement = $('#battleCoins');
-            battleCoinsElement.innerHTML = player.currencyAmount.battlecoins;
-        },
         renderCurrency: function () {
-            this.renderBattleCoins();
             this.renderCatchCoins();
             this.renderPokeCoins();
         },

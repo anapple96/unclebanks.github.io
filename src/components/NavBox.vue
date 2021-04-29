@@ -26,11 +26,11 @@
       SETTINGS
     </button>
     <button
-      id="badgesButton"
-      onclick="userInteractions.viewBadgeCase()"
+      id="typePointsButton"
+      onclick="dom.renderTypePoints()"
       class="button"
     >
-      BADGES
+      TYPE POINTS
     </button>
     <button
       id="evoStonesButton"

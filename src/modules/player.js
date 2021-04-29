@@ -32,6 +32,26 @@ export default (lastSave, appModel) => {
             pokecoins: 0,
             catchcoins: 0,
         },
+        typePoints: {
+            fire: 10,
+            water: 0,
+            grass: 0,
+            normal: 0,
+            electric: 0,
+            ice: 0,
+            fighting: 0,
+            poison: 0,
+            ground: 0,
+            flying: 0,
+            psychic: 0,
+            bug: 0,
+            rock: 0,
+            ghost: 0,
+            dragon: 0,
+            dark: 0,
+            steel: 0,
+            fairy: 0,
+        },
         battleItems: {
             xAttack: 0,
             xDefense: 0,
@@ -53,7 +73,7 @@ export default (lastSave, appModel) => {
         },
         settings: {
             currentRegionId: 'Kanto',
-            currentRouteId: 'kroute1',
+            currentRouteId: 'kantoFire1',
             listView: 'pokeDex',
             autoSort: true,
             dexView: 'all',
@@ -81,7 +101,6 @@ export default (lastSave, appModel) => {
             masterballSuccessfulThrows: 0,
             totalPokeCoins: 0,
             totalCatchCoins: 0,
-            totalBattleCoins: 0,
             totalExp: 0,
         },
         statisticsRequirements: {
@@ -224,11 +243,6 @@ export default (lastSave, appModel) => {
             this.currencyAmount.catchcoins += amount;
             this.statistics.totalCatchCoins += amount;
             dom.renderCatchCoins();
-        },
-        addBattleCoins: function (amount) {
-            this.currencyAmount.battlecoins += amount;
-            this.statistics.totalBattleCoins += amount;
-            dom.renderBattleCoins();
         },
         meetsCriteria: function (criteriaObj) {
             for (const group in criteriaObj) {
@@ -418,6 +432,7 @@ export default (lastSave, appModel) => {
                 localStorage.setItem('pokedexData', JSON.stringify(this.getPokedexData()));
                 localStorage.setItem('statistics', JSON.stringify(this.statistics));
                 localStorage.setItem('statisticsRequirements', JSON.stringify(this.statisticsRequirements));
+                localStorage.setItem('typePoints', JSON.stringify(this.typePoints));
                 localStorage.setItem('settings', JSON.stringify(this.settings));
                 localStorage.setItem('badges', JSON.stringify(this.badges));
                 localStorage.setItem('events', JSON.stringify(this.events));
@@ -435,6 +450,7 @@ export default (lastSave, appModel) => {
                 pokedexData: this.getPokedexData(),
                 statistics: this.statistics,
                 statisticsRequirements: this.statisticsRequirements,
+                typePoints: this.typePoints,
                 settings: this.settings,
                 ballsAmount: this.ballsAmount,
                 badges: this.badges,
@@ -498,6 +514,9 @@ export default (lastSave, appModel) => {
             }
             if (JSON.parse(localStorage.getItem('statisticsRequirements'))) {
                 this.statisticsRequirements = JSON.parse(localStorage.getItem('statisticsRequirements'));
+            }
+            if (JSON.parse(localStorage.getItem('typePoints'))) {
+                this.typePoints = JSON.parse(localStorage.getItem('typePoints'));
             }
             if (JSON.parse(localStorage.getItem('settings'))) {
                 this.settings = JSON.parse(localStorage.getItem('settings'));
@@ -578,6 +597,7 @@ export default (lastSave, appModel) => {
                 appModel.$store.commit('pokedex/loadData', saveData.pokedexData ? saveData.pokedexData : []);
                 const loadedStats = saveData.statistics ? saveData.statistics : {};
                 this.statistics = { ...this.statistics, ...loadedStats };
+                this.typePoints = saveData.typePoints;
                 if (saveData.settings) {
                     this.settings = saveData.settings;
                 }

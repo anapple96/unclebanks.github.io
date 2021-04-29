@@ -23,10 +23,6 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
                 notify('You cannot run away from a PROFESSOR battle.');
                 return false;
             }
-            if (combatLoop.gymLeader || combatLoop.gymLeader1 || combatLoop.gymLeader2 || combatLoop.gymLeader3) {
-                notify('You cannot run away from a GYM LEADER battle.');
-                return false;
-            }
             if (!player.routeUnlocked(player.settings.currentRegionId, newRouteId)) {
                 notify('You cannot go there yet.');
                 return false;
@@ -195,10 +191,6 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
             appModel.$store.commit('pokemon/moveUp', { pokemonIndex, from });
             player.savePokes();
         },
-        evolvePokemon: function (pokemonIndex) {
-            player.getPokemon()[pokemonIndex].tryEvolve(player.getPokemon()[pokemonIndex].shiny(), player);
-            renderView(dom, enemy, player);
-        },
         prestigePokemon: function (pokemonIndex) {
             player.getPokemon()[pokemonIndex].tryPrestige(player.getPokemon()[pokemonIndex].shiny());
             renderView(dom, enemy, player);
@@ -322,7 +314,6 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
                 'masterballSuccessfulThrows': 'Caught with Masterball',
                 'totalPokeCoins': 'Total PokeCoins Obtained',
                 'totalCatchCoins': 'Total CatchCoins Obtained',
-                'totalBattleCoins': 'Total BattleCoins Obtained',
                 'totalExp': 'Total Experience Earned',
             };
             let statList = '';
@@ -467,7 +458,6 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
         viewTown: function () {
             const region = player.settings.currentRegionId.toLowerCase();
             town.renderPokeCoinShop(region);
-            town.renderBattleCoinShop(region);
             town.renderCatchCoinShop(region);
             openModal(document.getElementById('townModal'));
         },
@@ -529,24 +519,6 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
             }
             if (player.wins[routeData.prof.win] && player.wins[routeData.prof1.win] && player.wins[routeData.prof2.win] && player.wins[routeData.prof3.win]) {
                 this.prof3ABattle();
-            }
-        },
-        checkGymLeaderBattle: function () {
-            const routeData = ROUTES[player.settings.currentRegionId][player.settings.currentRouteId];
-            if (!player.wins[routeData.gymLeader.win]) {
-                this.gymLeaderBattle();
-            }
-            if (player.wins[routeData.gymLeader.win] && !player.wins[routeData.gymLeader1.win]) {
-                this.gymLeader1Battle();
-            }
-            if (player.wins[routeData.gymLeader.win] && player.wins[routeData.gymLeader1.win] && !player.wins[routeData.gymLeader2.win]) {
-                this.gymLeader2Battle();
-            }
-            if (player.wins[routeData.gymLeader.win] && player.wins[routeData.gymLeader1.win] && player.wins[routeData.gymLeader2.win] && !player.wins[routeData.gymLeader3.win]) {
-                this.gymLeader3Battle();
-            }
-            if (player.wins[routeData.gymLeader.win] && player.wins[routeData.gymLeader1.win] && player.wins[routeData.gymLeader2.win] && player.wins[routeData.gymLeader3.win]) {
-                this.gymLeader3ABattle();
             }
         },
         checkNPCBattle: function () {
@@ -688,15 +660,6 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
                     reward: routeData.prof.reward,
                 };
                 combatLoop.profPoke = Object.values({ ...routeData.prof.poke });
-                combatLoop.unpause();
-                combatLoop.refresh();
-            }
-        },
-        gymLeaderBattle: function () {
-            const routeData = ROUTES[player.settings.currentRegionId][player.settings.currentRouteId];
-            if (routeData.gymLeader && routeData.gymLeader.poke.length > 0) {
-                combatLoop.gymLeader = { name: routeData.gymLeader.name, badge: routeData.gymLeader.badge, win: routeData.gymLeader.win };
-                combatLoop.gymLeaderPoke = Object.values({ ...routeData.gymLeader.poke });
                 combatLoop.unpause();
                 combatLoop.refresh();
             }

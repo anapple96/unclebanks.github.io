@@ -36,13 +36,6 @@
         PROFESSOR BATTLE
       </button>
       <button
-        id="gymLeaderButton"
-        onclick="userInteractions.gymLeaderBattle()"
-        class="button"
-      >
-        GYM LEADER BATTLE
-      </button><br>
-      <button
         id="npcButton"
         onclick="userInteractions.checkNPC()"
         class="button"

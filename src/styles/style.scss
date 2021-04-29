@@ -94,7 +94,6 @@ ul {
 .pokeDownButton,
 .pokeFirstButton,
 .toStorageButton,
-.pokeEvolveButton,
 .pokePrestigeButton {
     display: none;
 }
@@ -110,7 +109,6 @@ ul {
 .manageTeamEnabled .pokeDownButton,
 .manageTeamEnabled .pokeFirstButton,
 .manageTeamEnabled .toStorageButton,
-.manageTeamEnabled .canEvolve ~ .pokeEvolveButton,
 .manageTeamEnabled .canPrestige ~ .pokePrestigeButton {
     display: inline;
     padding-left: 3px;
@@ -500,7 +498,7 @@ progress.expBar {
     width: 90%;
     float: left;
     margin-left: 20px;
-    background-color: rgb(240,240,240);
+    background-color: transparent;
 }
 .townBuilding h4 { margin-left: 10px; }
 .townBuilding ul {

@@ -60,12 +60,6 @@ const ACHIEVEMENTS: Record<string, Record<string, Achievement[]>> = {
                 value: 100000,
             },
         ],
-        totalBattleCoins: [
-            {
-                name: 'Battle Coin Bags',
-                value: 100000,
-            },
-        ],
     },
     dex: {
         caughtCount: [
