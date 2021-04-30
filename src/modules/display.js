@@ -33,15 +33,12 @@ export default (player, combatLoop, userInteractions) => {
         renderPokeOnContainer: function (id, poke, face) {
             const container = $(`#${id}Box`).querySelector('.pokeBox');
             const townBox = $('#townBox');
-            const profButton = $('#profButton');
             const npcButton = $('#npcButton');
             if (!poke) {
                 container.style.display = 'none';
                 if (id == 'enemy') {
                     townBox.style.display = 'block';
                     const route = ROUTES[player.settings.currentRegionId][player.settings.currentRouteId];
-                    profButton.style.display = (route.prof) ? '' : 'none';
-                    profButton.innerHTML = (route.prof) ? route.prof.name : '';
                     npcButton.style.display = (route.npc) ? '' : 'none';
                     npcButton.innerHTML = (route.npc) ? route.npc.name : '';
                 }
@@ -221,12 +218,12 @@ export default (player, combatLoop, userInteractions) => {
             const pokeCoinsElement = $('#pokeCoins');
             pokeCoinsElement.innerHTML = player.currencyAmount.pokecoins;
         },
-        renderCatchCoins: function () {
-            const catchCoinsElement = $('#catchCoins');
-            catchCoinsElement.innerHTML = player.currencyAmount.catchcoins;
+        renderResearchCoins: function () {
+            const researchCoinsElement = $('#researchCoins');
+            researchCoinsElement.innerHTML = player.currencyAmount.researchcoins;
         },
         renderCurrency: function () {
-            this.renderCatchCoins();
+            this.renderResearchCoins();
             this.renderPokeCoins();
         },
         renderRevive: function () {

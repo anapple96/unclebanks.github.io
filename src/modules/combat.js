@@ -15,11 +15,8 @@ export default (player, enemy) => {
 
     const Combat = {
         paused: false,
-        prof: null,
-        profPoke: {},
         npc: null,
         npcPoke: {},
-        profCurrentID: 0,
         npcCurrentID: 0,
         enemyActivePoke: null,
         playerTimerId: null,
@@ -144,34 +141,7 @@ export default (player, enemy) => {
             player.getPokemon().forEach((poke) => poke.giveExp((Combat.enemyActivePoke.baseExp() / 100) + (Combat.enemyActivePoke.level() / 10)));
             const afterExp = player.getPokemon().map((poke) => poke.level());
 
-            // was it a prof poke
-            if (Combat.prof) {
-            // remove the pokemon
-                Combat.profPoke.splice(Combat.profCurrentID, 1);
-                if (Combat.profPoke.length < 1) {
-                    if (Combat.prof.badge) {
-                        if (!player.badges[Combat.prof.badge]) {
-                            player.badges[Combat.prof.badge] = true;
-                            dom.renderRouteList();
-                        }
-                    }
-                    if (Combat.prof.win) {
-                        if (!player.wins[Combat.prof.win]) {
-                            player.wins[Combat.prof.win] = true;
-                            dom.renderRouteList();
-                        }
-                    }
-                    if (Combat.prof.reward) {
-                        if (!player.unlocked[Combat.prof.reward]) {
-                            player.unlocked[Combat.prof.reward] = true;
-                            dom.renderRouteList();
-                        }
-                    }
-                    Combat.prof = null;
-                    Combat.pause();
-                    return false;
-                }
-            }
+            // was it a npc
             if (Combat.npc) {
             // remove the pokemon
                 Combat.npcPoke.splice(Combat.npcCurrentID, 1);
@@ -198,9 +168,7 @@ export default (player, enemy) => {
             dom.renderPokeOnContainer('player', player.activePoke(), player.settings.spriteChoice || 'back');
         },
         newEnemy: function () {
-            if (Combat.prof) {
-                enemy.profPoke(Combat.profPoke);
-            } else if (Combat.npc) {
+            if (Combat.npc) {
                 enemy.npcPoke(Combat.npcPoke);
             } else {
                 enemy.generateNew(player.settings.currentRegionId, player.settings.currentRouteId);
@@ -219,10 +187,6 @@ export default (player, enemy) => {
                 player.setActive(player.getPokemon().indexOf(alivePokeIndexes[0]));
                 Combat.refresh();
             } else {
-                if (Combat.prof) {
-                    Combat.prof = null;
-                    Combat.pause();
-                }
                 if (Combat.npc) {
                     Combat.npc = null;
                     Combat.pause();
@@ -235,7 +199,7 @@ export default (player, enemy) => {
         },
         attemptCatch: function () {
             if (
-                !Combat.prof && !Combat.npc && (
+                !Combat.npc && (
                     (Combat.catchEnabled == 'all')
                     || (Combat.catchEnabled == 'new' && !player.hasPokemonLike(enemy.activePoke()))
                 )
@@ -246,18 +210,15 @@ export default (player, enemy) => {
                     player.statistics.totalThrows++;
                     player.statistics[`${selectedBall}Throws`]++;
                     dom.renderBalls();
-                    const gainCatchCoins = Math.floor(Combat.enemyActivePoke.level() * 1) + 1;
+                    const gainResearchCoins = Math.floor(Combat.enemyActivePoke.level() * 1) + 1;
                     const catchBonus = (player.unlocked.razzBerry) ? 1.25 : 1;
                     const rngHappened = RNG(((enemy.activePoke().catchRate() * player.ballRNG(selectedBall)) / 3) * catchBonus);
                     if (rngHappened) {
                         player.statistics.successfulThrows++;
                         player.statistics.caught++;
                         player.statistics[`${selectedBall}SuccessfulThrows`]++;
-                        player.addCatchCoins(gainCatchCoins);
-                        notify(`You caught ${enemy.activePoke().pokeName()}`);
-                        if (!player.hasPokemonLike(enemy.activePoke())) {
-                            player.addPoke(enemy.activePoke());
-                        }
+                        player.addResearchCoins(gainResearchCoins);
+                        notify(`You gained data on ${enemy.activePoke().pokeName()} and sent them to Prof. Oak`);
                         player.addPokedex(enemy.activePoke().pokeName(), (enemy.activePoke().shiny() ? POKEDEXFLAGS.ownShiny : POKEDEXFLAGS.ownNormal));
                         if (enemy.activePoke().shiny()) {
                             player.statistics.shinyCaught++;

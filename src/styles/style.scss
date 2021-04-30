@@ -430,11 +430,10 @@ progress.expBar {
     margin-bottom: 7px;
 }
 
-#boulderBadge {
-    background-image: url('../assets/images/badges/Boulder\ Badge.png');
-    margin-top: 7px;
-    min-width: fit-content;
-    min-height: fit-content;
+#fireTypeButton {
+    background-image: url('../resources/assets/icons/types/fire.png');
+    width: 22px;
+    height: 22px;
 }
 #brockImage {
     background-image: url('../assets/images/gymLeaders/Brock2.png');

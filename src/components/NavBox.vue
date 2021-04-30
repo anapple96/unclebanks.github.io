@@ -33,13 +33,6 @@
       TYPE POINTS
     </button>
     <button
-      id="evoStonesButton"
-      onclick="userInteractions.viewEvoStones()"
-      class="button"
-    >
-      EVO STONES
-    </button>
-    <button
       id="keyItemsButton"
       onclick="userInteractions.viewKeyItems()"
       class="button"

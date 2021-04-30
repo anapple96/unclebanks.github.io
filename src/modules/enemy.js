@@ -11,13 +11,6 @@ export default (starter, player, Poke) => {
         false,
         Math.random() < (1 / (2 ** 13)),
     );
-
-    const profPoke = (pokemonList) => {
-        const selected = 0;
-        combatLoop.profCurrentID = selected;
-        const poke = pokeByName(pokemonList[selected][0]);
-        return generator(poke, pokemonList[selected][1]);
-    };
     const npcPoke = (pokemonList) => {
         const selected = 0;
         combatLoop.npcCurrentID = selected;
@@ -76,7 +69,6 @@ export default (starter, player, Poke) => {
     return {
         activePoke: () => active,
         clear: () => active = null,
-        profPoke: (pokemonList) => active = profPoke(pokemonList),
         npcPoke: (pokemonList) => active = npcPoke(pokemonList),
         generateNew: (regionId, routeId) => active = generateNew(regionId, routeId),
         attachCL: (_combatLoop) => combatLoop = _combatLoop,

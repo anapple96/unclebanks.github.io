@@ -30,7 +30,7 @@ export default (lastSave, appModel) => {
         secretCodes: {},
         currencyAmount: {
             pokecoins: 0,
-            catchcoins: 0,
+            researchcoins: 0,
         },
         typePoints: {
             fire: 10,
@@ -100,7 +100,7 @@ export default (lastSave, appModel) => {
             masterballThrows: 0,
             masterballSuccessfulThrows: 0,
             totalPokeCoins: 0,
-            totalCatchCoins: 0,
+            totalResearchCoins: 0,
             totalExp: 0,
         },
         statisticsRequirements: {
@@ -239,10 +239,10 @@ export default (lastSave, appModel) => {
             this.statistics.totalPokeCoins += amount;
             dom.renderPokeCoins();
         },
-        addCatchCoins: function (amount) {
-            this.currencyAmount.catchcoins += amount;
-            this.statistics.totalCatchCoins += amount;
-            dom.renderCatchCoins();
+        addResearchCoins: function (amount) {
+            this.currencyAmount.researchcoins += amount;
+            this.statistics.totalResearchCoins += amount;
+            dom.renderResearchCoins();
         },
         meetsCriteria: function (criteriaObj) {
             for (const group in criteriaObj) {
@@ -479,7 +479,7 @@ export default (lastSave, appModel) => {
                     const caughtAt = loadedPoke[3];
                     const prestigeLevel = loadedPoke[4] || 0;
                     const appliedVitamins = loadedPoke[5];
-                    if (pokeCount < 6) {
+                    if (pokeCount < 2) {
                         party.push(new Poke(pokeByName(pokeName), false, Number(exp), shiny, caughtAt, prestigeLevel, appliedVitamins));
                     } else {
                         storage.push(new Poke(pokeByName(pokeName), false, Number(exp), shiny, caughtAt, prestigeLevel, appliedVitamins));

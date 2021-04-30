@@ -60,10 +60,10 @@
     ></span> PokeCoins: <span id="pokeCoins">0</span><br>
     <span
       id="catchC"
-      title="CatchCoins"
+      title="ResearchCoins"
     ><img
-      class="catchcoins coinIcon"
-      src="assets/images/currency/CatchCoin.png"
-    ></span> CatchCoins: <span id="catchCoins">0</span><br>
+      class="researchcoins coinIcon"
+      src="assets/images/currency/catchCoin.png"
+    ></span> ResearchCoins: <span id="researchCoins">0</span><br>
   </div>
 </template>

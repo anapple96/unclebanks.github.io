@@ -54,7 +54,7 @@ const ACHIEVEMENTS: Record<string, Record<string, Achievement[]>> = {
                 value: 1000000,
             },
         ],
-        totalCatchCoins: [
+        totalResearchCoins: [
             {
                 name: 'Catch Coin Bags',
                 value: 100000,

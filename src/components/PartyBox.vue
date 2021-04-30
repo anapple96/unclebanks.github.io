@@ -11,38 +11,6 @@
           Heal
         </button>
       </p>
-      <p>
-        <button
-          id="pokeItems"
-          class="partyButton"
-        >
-          PokeItems
-        </button>
-      </p>
-      <p>
-        <button
-          id="team1"
-          class="partyButton"
-        >
-          Team 1
-        </button>
-      </p>
-      <p>
-        <button
-          id="team2"
-          class="partyButton"
-        >
-          Team 2
-        </button>
-      </p>
-      <p>
-        <button
-          id="team3"
-          class="partyButton"
-        >
-          Team 3
-        </button>
-      </p>
       <input
         id="enableDelete"
         v-model="manageTeam"

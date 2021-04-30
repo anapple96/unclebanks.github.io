@@ -56,7 +56,7 @@ export default {
         },
 
         add(state, poke) {
-            if (state.party.length < 6) {
+            if (state.party.length < 2) {
                 state.party.push(poke);
             } else {
                 state.storage.push(poke);

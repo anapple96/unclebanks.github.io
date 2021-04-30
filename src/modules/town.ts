@@ -31,7 +31,7 @@ interface PokecoinShopItemBase {
 }
 
 interface CatchcoinShopItemBase {
-    catchcoins: number,
+    researchcoins: number,
 }
 
 type PokecoinShopItem = PokecoinShopItemBase & ShopItem;
@@ -62,7 +62,7 @@ class Town {
 
     pokecoinShops: RegionShops<PokecoinShop>;
 
-    catchcoinShops: RegionShops<CatchcoinShop>;
+    researchcoinShops: RegionShops<CatchcoinShop>;
 
     constructor(player: Player, Poke: Poke) {
         this.player = player;
@@ -201,123 +201,123 @@ class Town {
                 },
             ],
         };
-        this.catchcoinShops = {
+        this.researchcoinShops = {
             kanto: [
                 {
                     name: 'Old Rod',
-                    catchcoins: 100,
+                    researchcoins: 100,
                     unlockable: 'kantoOldRod',
                 },
                 {
                     name: 'Good Rod',
-                    catchcoins: 1000,
+                    researchcoins: 1000,
                     unlockable: 'kantoGoodRod',
                 },
                 {
                     name: 'Super Rod',
-                    catchcoins: 10000,
+                    researchcoins: 10000,
                     unlockable: 'kantoSuperRod',
                 },
             ],
             johto: [
                 {
                     name: 'Old Rod',
-                    catchcoins: 100,
+                    researchcoins: 100,
                     unlockable: 'johtoOldRod',
                 },
                 {
                     name: 'Good Rod',
-                    catchcoins: 1000,
+                    researchcoins: 1000,
                     unlockable: 'johtoGoodRod',
                 },
                 {
                     name: 'Super Rod',
-                    catchcoins: 10000,
+                    researchcoins: 10000,
                     unlockable: 'johtoSuperRod',
                 },
             ],
             hoenn: [
                 {
                     name: 'Old Rod',
-                    catchcoins: 100,
+                    researchcoins: 100,
                     unlockable: 'hoennOldRod',
                 },
                 {
                     name: 'Good Rod',
-                    catchcoins: 1000,
+                    researchcoins: 1000,
                     unlockable: 'hoennGoodRod',
                 },
                 {
                     name: 'Super Rod',
-                    catchcoins: 10000,
+                    researchcoins: 10000,
                     unlockable: 'hoennSuperRod',
                 },
             ],
             sinnoh: [
                 {
                     name: 'Old Rod',
-                    catchcoins: 100,
+                    researchcoins: 100,
                     unlockable: 'sinnohOldRod',
                 },
                 {
                     name: 'Good Rod',
-                    catchcoins: 1000,
+                    researchcoins: 1000,
                     unlockable: 'sinnohGoodRod',
                 },
                 {
                     name: 'Super Rod',
-                    catchcoins: 10000,
+                    researchcoins: 10000,
                     unlockable: 'sinnohSuperRod',
                 },
             ],
             unova: [
                 {
                     name: 'Old Rod',
-                    catchcoins: 100,
+                    researchcoins: 100,
                     unlockable: 'unovaOldRod',
                 },
                 {
                     name: 'Good Rod',
-                    catchcoins: 1000,
+                    researchcoins: 1000,
                     unlockable: 'unovaGoodRod',
                 },
                 {
                     name: 'Super Rod',
-                    catchcoins: 10000,
+                    researchcoins: 10000,
                     unlockable: 'unovaSuperRod',
                 },
             ],
             kalos: [
                 {
                     name: 'Old Rod',
-                    catchcoins: 100,
+                    researchcoins: 100,
                     unlockable: 'kalosOldRod',
                 },
                 {
                     name: 'Good Rod',
-                    catchcoins: 1000,
+                    researchcoins: 1000,
                     unlockable: 'kalosGoodRod',
                 },
                 {
                     name: 'Super Rod',
-                    catchcoins: 10000,
+                    researchcoins: 10000,
                     unlockable: 'kalosSuperRod',
                 },
             ],
             alola: [
                 {
                     name: 'Old Rod',
-                    catchcoins: 100,
+                    researchcoins: 100,
                     unlockable: 'alolaOldRod',
                 },
                 {
                     name: 'Good Rod',
-                    catchcoins: 1000,
+                    researchcoins: 1000,
                     unlockable: 'alolaGoodRod',
                 },
                 {
                     name: 'Super Rod',
-                    catchcoins: 10000,
+                    researchcoins: 10000,
                     unlockable: 'alolaSuperRod',
                 },
             ],
@@ -364,9 +364,9 @@ class Town {
         $('#pokecoinShopItems').innerHTML = shopHTML;
     }
 
-    renderCatchCoinShop(region: string): void {
+    renderResearchCoinShop(region: string): void {
         let shopHTML = '';
-        const shop: CatchcoinShop | null = region in this.catchcoinShops ? this.catchcoinShops[region] : null;
+        const shop: CatchcoinShop | null = region in this.researchcoinShops ? this.researchcoinShops[region] : null;
         if (!shop) {
             throw new Error(`Couldn't find shop for region ${region}`);
         }
@@ -374,17 +374,17 @@ class Town {
             const item = shop[i];
             let canBuy = true;
             let own = false;
-            if (this.player.currencyAmount.catchcoins < item.catchcoins) canBuy = false;
+            if (this.player.currencyAmount.researchcoins < item.researchcoins) canBuy = false;
             if ('unlockable' in item && this.player.unlocked[item.unlockable]) {
                 canBuy = false;
                 own = true;
             }
             const disableButton = (!canBuy || own) ? ' disabled="true"' : '';
             const buttonText = (own) ? 'Own' : 'Buy';
-            const buttonHTML = ` <button onclick="town.buyCatchCoinItem('${region}', ${i})"${disableButton}>${buttonText}</button>`;
-            shopHTML += `${'<li><img src="assets/images/evoStones/'}${item.name}.png" height="30" width="30"></img>: <img src="assets/images/currency/CatchCoin.png" height="16" width="16"></img>${item.catchcoins}${buttonHTML}</li>`;
+            const buttonHTML = ` <button onclick="town.buyResearchCoinItem('${region}', ${i})"${disableButton}>${buttonText}</button>`;
+            shopHTML += `${'<li><img src="assets/images/evoStones/'}${item.name}.png" height="30" width="30"></img>: <img src="assets/images/currency/CatchCoin.png" height="16" width="16"></img>${item.researchcoins}${buttonHTML}</li>`;
         }
-        $('#catchcoinShopItems').innerHTML = shopHTML;
+        $('#researchcoinShopItems').innerHTML = shopHTML;
     }
 
     buyPokeCoinItem(region: string, index: number, amount = 1) {
@@ -413,21 +413,21 @@ class Town {
         }
     }
 
-    buyCatchCoinItem(region: string, index: number) {
-        const shop: CatchcoinShop | null = region in this.catchcoinShops ? this.catchcoinShops[region] : null;
+    buyResearchCoinItem(region: string, index: number) {
+        const shop: CatchcoinShop | null = region in this.researchcoinShops ? this.researchcoinShops[region] : null;
         if (!shop) {
             throw new Error(`Couldn't find shop for region ${region}`);
         }
         const item = shop[index];
-        if (this.player.currencyAmount.catchcoins < item.catchcoins) {
+        if (this.player.currencyAmount.researchcoins < item.researchcoins) {
             return false;
         } else {
-            this.player.currencyAmount.catchcoins -= item.catchcoins;
+            this.player.currencyAmount.researchcoins -= item.researchcoins;
             if ('unlockable' in item) {
                 this.player.unlocked[item.unlockable] = 1;
                 this.dom.renderRouteList();
             }
-            this.renderCatchCoinShop(region); // force refresh of shop
+            this.renderResearchCoinShop(region); // force refresh of shop
             this.dom.renderCurrency();
             return true;
         }

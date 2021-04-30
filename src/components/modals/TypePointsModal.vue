@@ -110,5 +110,9 @@ export default {
     components: {
         CardModal,
     },
+
+    props: {
+        ui: { type: Object, required: true },
+    },
 };
 </script>

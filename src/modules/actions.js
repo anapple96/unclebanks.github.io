@@ -19,10 +19,6 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
                 notify('It is too dangerous to travel without a POKEMON.');
                 return false;
             }
-            if (combatLoop.prof || combatLoop.prof1 || combatLoop.prof2 || combatLoop.prof3) {
-                notify('You cannot run away from a PROFESSOR battle.');
-                return false;
-            }
             if (!player.routeUnlocked(player.settings.currentRegionId, newRouteId)) {
                 notify('You cannot go there yet.');
                 return false;
@@ -256,42 +252,6 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
         },
         viewStatistics: function () {
             const statisticStrings = {
-                'fireBeaten': 'Fire POKEMON Beaten',
-                'waterBeaten': 'Water POKEMON Beaten',
-                'grassBeaten': 'Grass POKEMON Beaten',
-                'electricBeaten': 'Electric POKEMON Beaten',
-                'normalBeaten': 'Normal POKEMON Beaten',
-                'iceBeaten': 'Ice POKEMON Beaten',
-                'fightingBeaten': 'Fighting POKEMON Beaten',
-                'poisonBeaten': 'Poison POKEMON Beaten',
-                'groundBeaten': 'Ground POKEMON Beaten',
-                'flyingBeaten': 'Flying POKEMON Beaten',
-                'psychicBeaten': 'Psychic POKEMON Beaten',
-                'bugBeaten': 'Bug POKEMON Beaten',
-                'rockBeaten': 'Rock POKEMON Beaten',
-                'ghostBeaten': 'Ghost POKEMON Beaten',
-                'darkBeaten': 'Dark POKEMON Beaten',
-                'dragonBeaten': 'Dragon POKEMON Beaten',
-                'steelBeaten': 'Steel POKEMON Beaten',
-                'fairyBeaten': 'Fairy POKEMON Beaten',
-                'fireCaught': 'Fire POKEMON Caught',
-                'waterCaught': 'Water POKEMON Caught',
-                'grassCaught': 'Grass POKEMON Caught',
-                'electricCaught': 'Electric POKEMON Caught',
-                'normalCaught': 'Normal POKEMON Caught',
-                'iceCaught': 'Ice POKEMON Caught',
-                'fightingCaught': 'Fighting POKEMON Caught',
-                'poisonCaught': 'Poison POKEMON Caught',
-                'groundCaught': 'Ground POKEMON Caught',
-                'flyingCaught': 'Flying POKEMON Caught',
-                'psychicCaught': 'Psychic POKEMON Caught',
-                'bugCaught': 'Bug POKEMON Caught',
-                'rockCaught': 'Rock POKEMON Caught',
-                'ghostCaught': 'Ghost POKEMON Caught',
-                'darkCaught': 'Dark POKEMON Caught',
-                'dragonCaught': 'Dragon POKEMON Caught',
-                'steelCaught': 'Steel POKEMON Caught',
-                'fairyCaught': 'Fairy POKEMON Caught',
                 'seen': 'Pokemon Seen',
                 'caught': 'Pokemon Caught',
                 'released': 'Pokemon Released',
@@ -313,7 +273,7 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
                 'masterballThrows': 'Masterball Throws',
                 'masterballSuccessfulThrows': 'Caught with Masterball',
                 'totalPokeCoins': 'Total PokeCoins Obtained',
-                'totalCatchCoins': 'Total CatchCoins Obtained',
+                'totalResearchCoins': 'Total ResearchCoins Obtained',
                 'totalExp': 'Total Experience Earned',
             };
             let statList = '';
@@ -397,51 +357,8 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
                 notify('Code Invalid or Already Claimed', { type: 'danger' });
             }
         },
-        viewBadgeCase: function () {
-            if (!isEmpty(player.badges)) {
-                if (player.badges['Boulder Badge'] === true) {
-                    document.getElementById('boulderBadge').style.visibility = 'visible';
-                }
-                if (player.badges['Cascade Badge'] === true) {
-                    document.getElementById('cascadeBadge').style.visibility = 'visible';
-                }
-                if (player.badges['Thunder Badge'] === true) {
-                    document.getElementById('thunderBadge').style.visibility = 'visible';
-                }
-                if (player.badges['Rainbow Badge'] === true) {
-                    document.getElementById('rainbowBadge').style.visibility = 'visible';
-                }
-                if (player.badges['Soul Badge'] === true) {
-                    document.getElementById('soulBadge').style.visibility = 'visible';
-                }
-                if (player.badges['Marsh Badge'] === true) {
-                    document.getElementById('marshBadge').style.visibility = 'visible';
-                }
-                if (player.badges['Volcano Badge'] === true) {
-                    document.getElementById('volcanoBadge').style.visibility = 'visible';
-                }
-                if (player.badges['Earth Badge'] === true) {
-                    document.getElementById('earthBadge').style.visibility = 'visible';
-                }
-                openModal(document.getElementById('badgecaseModal'));
-            } else {
-                notify('You have no Badges');
-            }
-        },
         renderBoulderBadge: function () {
             openModal(document.getElementById('brockModal'));
-        },
-        viewEvoStones: function () {
-            if (!isEmpty(player.evoStones)) {
-                let evoStonesHTML = '';
-                for (const evoStones in player.evoStones) {
-                    evoStonesHTML += `${'<img src="assets/images/evoStones/'}${[evoStones]}.png"></img>`;
-                }
-                document.getElementById('evoStoneList').innerHTML = evoStonesHTML;
-                openModal(document.getElementById('evoStonesModal'));
-            } else {
-                notify('You have no Evolution Stones');
-            }
         },
         viewKeyItems: function () {
             if (!isEmpty(player.unlocked)) {
@@ -458,7 +375,7 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
         viewTown: function () {
             const region = player.settings.currentRegionId.toLowerCase();
             town.renderPokeCoinShop(region);
-            town.renderCatchCoinShop(region);
+            town.renderResearchCoinShop(region);
             openModal(document.getElementById('townModal'));
         },
         openVitaminModal: function (vitamin) {
@@ -503,24 +420,6 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
                 this.updateVitaminModal();
             }
         },
-        checkProfBattle: function () {
-            const routeData = ROUTES[player.settings.currentRegionId][player.settings.currentRouteId];
-            if (!player.wins[routeData.prof.win]) {
-                this.profBattle();
-            }
-            if (player.wins[routeData.prof.win] && !player.wins[routeData.prof1.win]) {
-                this.prof1Battle();
-            }
-            if (player.wins[routeData.prof.win] && player.wins[routeData.prof1.win] && !player.wins[routeData.prof2.win]) {
-                this.prof2Battle();
-            }
-            if (player.wins[routeData.prof.win] && player.wins[routeData.prof1.win] && player.wins[routeData.prof2.win] && !player.wins[routeData.prof3.win]) {
-                this.prof3Battle();
-            }
-            if (player.wins[routeData.prof.win] && player.wins[routeData.prof1.win] && player.wins[routeData.prof2.win] && player.wins[routeData.prof3.win]) {
-                this.prof3ABattle();
-            }
-        },
         checkNPCBattle: function () {
             const routeData = ROUTES[player.settings.currentRegionId][player.settings.currentRouteId];
             if (routeData.npc.name === 'Nugget 5') {
@@ -532,137 +431,9 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
             if (routeData.npc.name === 'Prof. Oak') {
                 this.oakEvent();
             }
-            if (routeData.npc.name === 'Pewter Museum') {
-                this.pewterMuseumEvent();
-            }
-            if (routeData.npc.name === 'Nugget 5') {
-                this.nuggetBridgeEvent();
-            }
-            if (routeData.npc.name === 'Bill') {
-                this.billEvent();
-            }
-            if (routeData.npc.name === 'Cinnabar Lab') {
-                this.cinnabarLabEvent();
-            }
-            if (routeData.npc.name === 'Steven\'s Home') {
-                this.beldumEvent();
-            }
-            if (routeData.npc.name === 'Shrine\'s Old Man') {
-                this.abundantOldManEvent();
-            }
-            if (routeData.npc.name === 'Game Corner') {
-                this.gameCorner();
-            }
-        },
-        gameCorner: function () {
-            openModal(document.getElementById('gameCornerModal'));
         },
         oakEvent: function () {
             notify('How is your Pokedex Coming along?');
-        },
-        pewterMuseumEvent: function () {
-            if (player.events.pewterMuseum1 === true) {
-                notify('Did you take that fossil to Cinnabar Island?');
-            }
-            if (!player.badges['Boulder Badge']) {
-                notify('Why not beat Brock and come back?');
-            }
-            if (player.badges['Boulder Badge'] === true && !player.events.pewterMuseum1) {
-                player.unlocked.oldAmber = true;
-                notify('Congrats on the win. Take this Old Amber as a bonus');
-                player.events.pewterMuseum1 = true;
-            }
-        },
-        nuggetBridgeEvent: function () {
-            if (player.events.nugget5 === true && !player.hasPokemon('Charmander')) {
-                notify('I think you would do great in Team Rocket. Here is a Charmander as a bribe.');
-                player.addPoke(new Poke(POKEDEX[4], 25));
-                player.addPokedex('Charmander', POKEDEXFLAGS.ownNormal);
-            }
-            if (!player.events.nugget5) {
-                notify('Defeat the 5 of us in a row to win a special prize!');
-                this.checkNPCBattle();
-            }
-            if (player.events.nugget5 === true && player.hasPokemon('Charmander')) {
-                notify('You feel like joining us yet?');
-            }
-        },
-        billEvent: function () {
-            const routeData = ROUTES[player.settings.currentRegionId][player.settings.currentRouteId];
-            if (!player.events[routeData.npc.event]) {
-                notify('Hi! Thanks for stopping by. Show me a Haunter, Machoke, Graveler, or Kadabra and I will give you their evolved forms');
-                player.events[routeData.npc.event] = true;
-            }
-            if (player.hasPokemon('Machoke') && !player.hasPokemon('Machamp')) {
-                player.addPoke(new Poke(POKEDEX[85], 25));
-                player.addPokedex('Machamp', POKEDEXFLAGS.ownNormal);
-                notify('I see you have a Machoke. Here is a Machamp');
-            }
-            if (player.hasPokemon('Kadabra') && !player.hasPokemon('Alakazam')) {
-                player.addPoke(new Poke(POKEDEX[81], 25));
-                player.addPokedex('Alakazam', POKEDEXFLAGS.ownNormal);
-                notify('I see you have a Kadabra. Here is a Alakazam');
-            }
-            if (player.hasPokemon('Graveler') && !player.hasPokemon('Golem')) {
-                player.addPoke(new Poke(POKEDEX[93], 25));
-                player.addPokedex('Golem', POKEDEXFLAGS.ownNormal);
-                notify('I see you have a Graveler. Here is a Golem');
-            }
-            if (player.hasPokemon('Haunter') && !player.hasPokemon('Gengar')) {
-                player.addPoke(new Poke(POKEDEX[117], 25));
-                player.addPokedex('Gengar', POKEDEXFLAGS.ownNormal);
-                notify('I see you have a Haunter. Here is a Gengar');
-            } else {
-                notify('No trades right now. Sorry');
-            }
-        },
-        cinnabarLabEvent: function () {
-            if (!player.events.cinnabarLab1) {
-                notify('Welcome, if you have any fossils we can restore them to the Pokemon they were.');
-                player.events.cinnabarLab1 = true;
-            }
-            if (player.events.cinnabarLab1 === true && player.unlocked.oldAmber === true) {
-                notify('Is that an Old Amber? Ha! Now it is an Aerodactyl');
-                player.addPoke(new Poke(POKEDEX[171], 25));
-                player.addPokedex('Aerodactyl', POKEDEXFLAGS.ownNormal);
-            }
-        },
-        beldumEvent: function () {
-            if (!player.events.beldum1) {
-                notify('Congrats on being dope. Take this Beldum');
-                player.addPoke(new Poke(pokeByName('Beldum'), 5));
-                player.addPokedex('Beldum', POKEDEXFLAGS.ownNormal);
-                player.events.beldum1 = true;
-            } else {
-                notify('No one is home');
-            }
-        },
-        abundantOldManEvent: function () {
-            if (!player.events.abundantShrineEvent && player.hasPokemon('Thundurus') && player.hasPokemon('Landorus') && player.hasPokemon('Tornadus')) {
-                notify('Amazing that you\'ve tamed the Forces of Nature. Take this item to take them to the next level');
-                player.evoStones.revealGlass = 1;
-                player.events.abundantShrineEvent = true;
-            }
-            if (player.events.abundantShrineEvent === true) {
-                notify('Have you tried using the Reveal Glass on the Forces of Nature yet?');
-            }
-            if (!player.events.abundantShrineEvent && !player.hasPokemon('Landorus')) {
-                notify('Come back to me when you\'ve master the Forces of Nature');
-            }
-        },
-        profBattle: function () {
-            const routeData = ROUTES[player.settings.currentRegionId][player.settings.currentRouteId];
-            if (routeData.prof && routeData.prof.poke.length > 0) {
-                combatLoop.prof = {
-                    name: routeData.prof.name,
-                    badge: routeData.prof.badge,
-                    win: routeData.prof.win,
-                    reward: routeData.prof.reward,
-                };
-                combatLoop.profPoke = Object.values({ ...routeData.prof.poke });
-                combatLoop.unpause();
-                combatLoop.refresh();
-            }
         },
         npcBattle: function () {
             const routeData = ROUTES[player.settings.currentRegionId][player.settings.currentRouteId];

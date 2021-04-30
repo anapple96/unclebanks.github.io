@@ -1,7 +1,7 @@
 <template>
   <SaveTextModal :ui="ui" />
   <InventoryModal />
-  <TypePointsModal />
+  <TypePointsModal :ui="ui" />
   <KeyItemsModal />
   <VitaminModal />
   <SettingsModal :ui="ui" />

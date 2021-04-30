@@ -29,13 +29,6 @@
         TOWN
       </button><br>
       <button
-        id="profButton"
-        onclick="userInteractions.profBattle()"
-        class="button"
-      >
-        PROFESSOR BATTLE
-      </button>
-      <button
         id="npcButton"
         onclick="userInteractions.checkNPC()"
         class="button"

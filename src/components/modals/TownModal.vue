@@ -11,9 +11,9 @@
         >
           <h4>PokeCoin Shop</h4>
           <ul id="pokecoinShopItems" />
-          <div id="catchcoinShop">
-            <h4>CatchCoin Shop</h4>
-            <ul id="catchcoinShopItems" />
+          <div id="researchcoinShop">
+            <h4>ResearchCoin Shop</h4>
+            <ul id="researchcoinShopItems" />
           </div>
         </div>
       </div>
