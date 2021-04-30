@@ -499,6 +499,17 @@ progress.expBar {
     border-top: 1px solid rgb(217, 217, 217);
     padding: 5px 20px;
 }
+.typeShop {
+    width: 90%;
+    float: left;
+    margin-left: 20px;
+    background-color: transparent;
+}
+.typeShop h4 { margin-left: 10px; }
+.typeShop ul {
+    border-top: 1px solid rgb(217, 217, 217);
+    padding: 5px 20px;
+}
 ul#shopItems li {
     margin-top: 2px;
 }

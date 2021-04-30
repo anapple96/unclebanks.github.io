@@ -2,6 +2,7 @@
   <SaveTextModal :ui="ui" />
   <InventoryModal />
   <TypePointsModal :ui="ui" />
+  <TypeShopModal />
   <KeyItemsModal />
   <VitaminModal />
   <SettingsModal :ui="ui" />
@@ -19,6 +20,7 @@
 import SaveTextModal from './modals/SaveTextModal.vue';
 import InventoryModal from './modals/InventoryModal.vue';
 import TypePointsModal from './modals/TypePointsModal.vue';
+import TypeShopModal from './modals/TypeShopModal.vue';
 import KeyItemsModal from './modals/KeyItemsModal.vue';
 import VitaminModal from './modals/VitaminModal.vue';
 import SettingsModal from './modals/SettingsModal.vue';
@@ -36,6 +38,7 @@ export default {
         SaveTextModal,
         InventoryModal,
         TypePointsModal,
+        TypeShopModal,
         KeyItemsModal,
         VitaminModal,
         SettingsModal,

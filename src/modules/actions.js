@@ -378,6 +378,11 @@ export default (player, combatLoop, enemy, town, story, appModel) => {
             town.renderResearchCoinShop(region);
             openModal(document.getElementById('townModal'));
         },
+        viewTypeShop: function () {
+            const region = player.settings.currentRegionId.toLowerCase();
+            town.renderTypePointShop(region);
+            openModal(document.getElementById('typeshopModal'));
+        },
         openVitaminModal: function (vitamin) {
             if (!VITAMINS[vitamin]) {
                 return notify(`Invalid vitamin '${vitamin}'`);
